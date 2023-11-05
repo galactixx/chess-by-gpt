@@ -1,2 +1,2 @@
 # chess-by-gpt
-Chess enging run entirely by GPT3.5/GPT4
+Chess engine running entirely by GPT3.5/GPT4
