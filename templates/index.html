@@ -2,11 +2,11 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>ChessBot</title>
+        <title>Chess by GPT 4</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></link>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"></link>
         <link rel="stylesheet" href="{{ url_for('static', filename='libs/chessboard/css/chessboard-0.3.0.css') }}"></link>
         <link rel="shortcut icon" href="{{ url_for('static', filename='rook_favicon.ico') }}">
 
@@ -28,10 +28,17 @@
     </head>
     <body>
         <div class="container">
-            <div id="mainWindow">
-                <div id="piecesB"></div>
-                <div id="board"></div>
-                <div id="piecesW"></div>
+            <div class="col-xs-12 col-sm-6">
+                <div id="chessBoard">
+                    <div id="piecesB"></div>
+                    <div id="board"></div>
+                    <div id="piecesW"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div id="moves">
+                    <h2>Moves Made in Game</h2>
+                </div>
             </div>
         </div>
     </body>
