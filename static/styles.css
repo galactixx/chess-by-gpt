@@ -1,47 +1,42 @@
+@font-face {
+    font-family: 'Vinque';
+    src: url('fonts/vinque_rg.otf');
+}
+
+@font-face {
+    font-family: 'Caslon Antique';
+    src: url('fonts/caslon_antique_italic.ttf');
+}
+
 body {
     padding-top: 110px;
     align-items: center;
 }
 
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
 #chessBoard {
-    width: 85%;
+    width: 95%;
     text-align: left;
+}
+
+#moves, .col-xs-12.col-sm-6 {
+    width: 45%;
 }
 
 #moves {
     margin: 0;
     outline: 1px solid rgb(52, 50, 50);
-    width: 600px;
     height: 500px;
-    text-align: right;
-    box-shadow: 3px 3px 2px grey;
+    display: flex;
+    text-align: left;
+    font-family: 'Caslon Antique', serif;
     border-radius: 5px 10px 15px 20px;
 }
 
-#moves h2 {
-    position: relative;
-    margin: 0;
-    width: 35%;
-    color:rgb(37, 35, 35);
-    padding: 10px;
-    text-align: left;
-    font-size: 18px;
-    font-style: italic;
-    font-family: 'Source Sans Pro', sans-serif;
-}
-
-#moves h2::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 1.5px;
-    width: 100%;
-    background: linear-gradient(to right, black, transparent);
-  }
-
-#moves p {
-    margin: 0;
-    color:#333;
-    padding:10px;
+#white, #black {
+    width: 45%;
 }

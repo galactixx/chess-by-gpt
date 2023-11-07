@@ -7,4 +7,8 @@ function generateChessBoard() {
   });
 };
 
+function addWhiteMove() {
+  
+}
+
 setTimeout(generateChessBoard, 1);
