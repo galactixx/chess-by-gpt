@@ -21,8 +21,10 @@ function movePiece(source, target, newPiece) {
 
 function onDropPiece(source, target) {
   var piece = game.get(source);
-  
+
   if (piece.type === 'p' && (target[1] === '8' || target[1] === '1')) {
+      document.getElementById('promotion').classList.toggle('show')
+
       var newPiece = prompt('Promotion! Choose a piece (q, r, b, n)');
       movePiece(source, target, newPiece);
   } else {
