@@ -16,17 +16,29 @@ function movePiece(source, target, newPiece) {
     to: target,
     promotion: newPiece
   });
-  illegalMove(move)
+  illegalMove(move);
+}
+
+function promotionPieceSelected(id, piece, source, target) {
+
+  document.getElementById(id).addEventListener('click', function() {
+    movePiece(source, target, piece);
+    document.getElementById('promotion').classList.add('hide');
+    board.position(game.fen());
+  });
 }
 
 function onDropPiece(source, target) {
   var piece = game.get(source);
 
   if (piece.type === 'p' && (target[1] === '8' || target[1] === '1')) {
-      document.getElementById('promotion').classList.toggle('show')
+      document.getElementById('promotion').classList.remove('hide');
+      document.getElementById('promotion').classList.add('show');
 
-      var newPiece = prompt('Promotion! Choose a piece (q, r, b, n)');
-      movePiece(source, target, newPiece);
+      promotionPieceSelected('queen', 'q', source, target);
+      promotionPieceSelected('rook', 'r', source, target);
+      promotionPieceSelected('bishop', 'b', source, target);
+      promotionPieceSelected('knight', 'n', source, target);
   } else {
     movePiece(source, target, 'q');
   }
