@@ -58,6 +58,7 @@ span {
     text-align: left;
     font-family: 'Caslon Antique', serif;
     border-radius: 5px 10px 15px 20px;
+    overflow: auto;
 }
 
 #white, #black {

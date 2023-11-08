@@ -41,9 +41,11 @@ function movePiece(source, target, piece, newPiece) {
     } else {
       var pieceAdd = piece.type.toUpperCase().concat(target);
     }
-  if (game.in_check()) {
-    pieceAdd = pieceAdd.concat('+')
-  }
+    if (game.in_checkmate()) {
+      pieceAdd = pieceAdd.concat('#')
+    } else if (game.in_check()) {
+      pieceAdd = pieceAdd.concat('+')
+    }
 
     if (game.turn() === 'b') {
       movesWhite.push(pieceAdd);
@@ -52,6 +54,8 @@ function movePiece(source, target, piece, newPiece) {
       movesBlack.push(pieceAdd);
       appendMoves('black-moves', movesBlack);
     }
+    var movesDiv = document.getElementById("moves");
+    movesDiv.scrollTop = movesDiv.scrollHeight;
   }
 }
 
