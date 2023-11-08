@@ -1,4 +1,9 @@
 var board, game = new Chess();
+var movesWhite = [];
+
+window.onload = function() {
+  document.getElementById("white moves").innerHTML = movesWhite.join(", ");
+}
 
 function onSnapPiece() {
   board.position(game.fen());
@@ -41,6 +46,16 @@ function onDropPiece(source, target) {
       promotionPieceSelected('knight', 'n', source, target);
   } else {
     movePiece(source, target, 'q');
+  }
+
+  if (game.turn() === 'b') {
+    if (piece.type === 'p') {
+      var pieceAdd = target
+    } else {
+      var pieceAdd = piece.type.toUpperCase().concat(target)
+    }
+    movesWhite.push(pieceAdd);
+    document.getElementById("white moves").innerHTML = movesWhite.join(", ");
   }
 }
 
