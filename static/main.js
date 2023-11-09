@@ -3,6 +3,15 @@ var board, game = new Chess();
 var movesWhite = [];
 var movesBlack = [];
 
+function getLLMMove() {
+  var url = "/move?movesWhite=" + encodeURIComponent(JSON.stringify(movesWhite)) +
+            "&movesBlack=" + encodeURIComponent(JSON.stringify(movesBlack));
+  $.get(url, function(data) {
+    game.move(data, {sloppy: true});
+    setTimeout(function(){ board.position(game.fen()); }, 100);
+  });
+}
+
 function appendMoves(id, moveList) {
   var listHTML = "<ul>";
 
@@ -84,6 +93,7 @@ function onDropPiece(source, target) {
   } else {
     movePiece(source, target, piece, 'q');
   }
+  getLLMMove();
 }
 
 function onDragPiece (source, piece, position, orientation) {

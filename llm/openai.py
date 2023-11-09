@@ -12,7 +12,7 @@ class OpenAILLM(BaseLLM):
     """Simple interface for OpenAI LLM."""
     def __init__(self,
                  model_name: OpenAIModels = OpenAIModels.GPT_3_5_TURBO,
-                 instruction: OpenAIInstructions = OpenAIInstructions.BASIC,
+                 instruction: OpenAIInstructions = OpenAIInstructions.CHESS,
                  temperature: float = 0.65):
         self.model_name = model_name
         self.instruction = instruction

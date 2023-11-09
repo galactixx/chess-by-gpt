@@ -1,7 +1,12 @@
 from enum import Enum
 
 class OpenAIInstructions(Enum):
-    BASIC = {"role": "system", "content": "you are a helpful friend"}
+    CHESS = {
+        "role": "system",
+        "content": """
+            You are a chess grandmaster, the most ambitious chess player.
+            You will be given an updated notation with moves from your opponent.
+            You need to select the best move you can and reply in Forsyth-Edwards notation (FEN)."""}
 
 class OpenAIModels(Enum):
     """All OpenAI models available through API"""
