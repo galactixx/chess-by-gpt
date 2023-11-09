@@ -71,14 +71,16 @@ function promotionPieceSelected(id, piece, piece_promotion, source, target) {
 function onDropPiece(source, target) {
   var piece = game.get(source);
 
-  if (piece.type === 'p' && (target[1] === '8' || target[1] === '1')) {
-      document.getElementById('promotion').classList.remove('hide');
-      document.getElementById('promotion').classList.add('show');
+  if (piece.type === 'p' && (target[1] === '8' || target[1] === '1') &&
+     (source[1] === '7' || source[1] === '2')) {
 
-      promotionPieceSelected('queen', piece, 'q', source, target);
-      promotionPieceSelected('rook', piece, 'r', source, target);
-      promotionPieceSelected('bishop', piece, 'b', source, target);
-      promotionPieceSelected('knight', piece, 'n', source, target);
+    document.getElementById('promotion').classList.remove('hide');
+    document.getElementById('promotion').classList.add('show');
+
+    promotionPieceSelected('queen', piece, 'q', source, target);
+    promotionPieceSelected('rook', piece, 'r', source, target);
+    promotionPieceSelected('bishop', piece, 'b', source, target);
+    promotionPieceSelected('knight', piece, 'n', source, target);
   } else {
     movePiece(source, target, piece, 'q');
   }
