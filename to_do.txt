@@ -1,0 +1,7 @@
+1) When refresh, reset board internally.
+2) Add logic for determining checkmate and stalemate.
+3) Add button (option) to change model, as well as to reset board.
+4) Add numbers for each move in notation.
+5) Center promotion buttons more so.
+6) Add shading over board when asking for promotion.
+7) Do not allow user to move black pieces (because GPT wil do that).
