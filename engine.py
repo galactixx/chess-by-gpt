@@ -32,7 +32,8 @@ class Engine:
         """Execute llm inference to determine what the appropriate chess move should be."""
 
         while True:
-            prompt = f"The following moves in the chess game have been made: {self.pgn}"
+            prompt = f"""
+            In this chess game you are playing as {self._llm_side.value}. The following moves in the chess game have been made: {self.pgn}"""
             move = self._llm.get_completion(prompt=prompt)
             print(move)
 
