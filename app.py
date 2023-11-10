@@ -14,10 +14,11 @@ def index():
 @app.route('/move')
 def get_move():
     """Retrieve move for LLM for chess game."""
-    white_moves = request.args.getlist('movesWhite')
-    black_moves = request.args.getlist('movesBlack')
+    white_moves = json.loads(request.args.get('movesWhiteEngine'))
+    black_moves = json.loads(request.args.get('movesBlackEngine'))
 
     print(white_moves)
+    print(black_moves)
 
     # Instantiate engine
     engine_chess = Engine(
@@ -28,6 +29,7 @@ def get_move():
     
     # Get move response from LLM
     move = engine_chess.get_chess_move_response()
+    print(move)
 
     return move
 

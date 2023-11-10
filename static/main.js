@@ -3,13 +3,20 @@ var board, game = new Chess();
 var movesWhite = [];
 var movesBlack = [];
 
+var movesWhiteEngine = [];
+var movesBlackEngine = [];
+
 function getLLMMove() {
-  var url = "/move?movesWhite=" + encodeURIComponent(JSON.stringify(movesWhite)) +
-            "&movesBlack=" + encodeURIComponent(JSON.stringify(movesBlack));
-  $.get(url, function(data) {
-    game.move(data, {sloppy: true});
-    setTimeout(function(){ board.position(game.fen()); }, 100);
-  });
+    var url = "/move?movesWhiteEngine=" + encodeURIComponent(JSON.stringify(movesWhiteEngine)) +
+              "&movesBlackEngine=" + encodeURIComponent(JSON.stringify(movesBlackEngine));
+    $.get(url, function(data) {
+      var data_split = data.split(",");
+      var source = data_split[0].trim();
+      var target = data_split[1].trim();
+      var piece = game.get(source);
+      movePiece(source, target, piece);
+      setTimeout(function(){ board.position(game.fen()); }, 100);
+    });
 }
 
 function appendMoves(id, moveList) {
@@ -32,7 +39,7 @@ function illegalMove(move) {
   }
 }
 
-function movePiece(source, target, piece, newPiece) {
+function movePieceLogic(source, target, piece, newPiece) {
   var move = game.move({
     from: source,
     to: target,
@@ -55,12 +62,15 @@ function movePiece(source, target, piece, newPiece) {
     } else if (game.in_check()) {
       pieceAdd = pieceAdd.concat('+')
     }
+    var pieceUCIFormat = source.concat(target)
 
     if (game.turn() === 'b') {
       movesWhite.push(pieceAdd);
+      movesWhiteEngine.push(pieceUCIFormat);
       appendMoves('white-moves', movesWhite);
     } else {
       movesBlack.push(pieceAdd);
+      movesBlackEngine.push(pieceUCIFormat);
       appendMoves('black-moves', movesBlack);
     }
     var movesDiv = document.getElementById("moves");
@@ -68,18 +78,8 @@ function movePiece(source, target, piece, newPiece) {
   }
 }
 
-function promotionPieceSelected(id, piece, piece_promotion, source, target) {
-
-  document.getElementById(id).addEventListener('click', function() {
-    movePiece(source, target, piece, piece_promotion);
-    document.getElementById('promotion').classList.add('hide');
-    board.position(game.fen());
-  });
-}
-
-function onDropPiece(source, target) {
-  var piece = game.get(source);
-
+function movePiece(source, target, piece) {
+  
   if (piece.type === 'p' && (target[1] === '8' || target[1] === '1') &&
      (source[1] === '7' || source[1] === '2')) {
 
@@ -91,8 +91,22 @@ function onDropPiece(source, target) {
     promotionPieceSelected('bishop', piece, 'b', source, target);
     promotionPieceSelected('knight', piece, 'n', source, target);
   } else {
-    movePiece(source, target, piece, 'q');
+    movePieceLogic(source, target, piece, 'q');
   }
+}
+
+function promotionPieceSelected(id, piece, newPiece, source, target) {
+
+  document.getElementById(id).addEventListener('click', function() {
+    movePieceLogic(source, target, piece, newPiece);
+    document.getElementById('promotion').classList.add('hide');
+    board.position(game.fen());
+  });
+}
+
+function onDropPiece(source, target) {
+  var piece = game.get(source);
+  movePiece(source, target, piece);
   getLLMMove();
 }
 

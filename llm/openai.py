@@ -1,7 +1,7 @@
 import os
 from typing import List
 
-import openai
+from openai import OpenAI
 
 from llm.base import BaseLLM
 from llm.models import (
@@ -18,9 +18,15 @@ class OpenAILLM(BaseLLM):
         self.instruction = instruction
         self.temperature = temperature
 
+        # Retrieve API key
+        self._open_ai_key = os.environ['OPENAI_API_KEY']
+
         # The API key is blank or not set
-        if not os.environ.get("OPENAI_API_KEY"):
+        if not self._open_ai_key:
             raise ValueError("OPENAI_API_KEY is not set or is blank")
+
+        # Instantiate a client object for interacting with the OpenAI API
+        self.client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 
         if model_name.value not in [model.value for model in OpenAIModels]:
             raise ValueError(f'{model_name} is not a valid model name for OpenAI API')
@@ -39,11 +45,11 @@ class OpenAILLM(BaseLLM):
         messages = self.generate_message_prompt(prompt=prompt)
 
         # Chat completion
-        response = openai.ChatCompletion.create(
+        response = self.client.chat.completions.create(
             model=self.model_name.value,
             messages=messages,
             temperature=self.temperature,
-            stream=False,
+            stream=False
         )
 
-        return response.choices[0].message["content"]
+        return response.choices[0].message.content
