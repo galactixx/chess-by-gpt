@@ -13,7 +13,7 @@ class OpenAILLM(BaseLLM):
     def __init__(self,
                  model_name: OpenAIModels = OpenAIModels.GPT_3_5_TURBO,
                  instruction: OpenAIInstructions = OpenAIInstructions.CHESS,
-                 temperature: float = 0.65):
+                 temperature: float = 1.0):
         self.model_name = model_name
         self.instruction = instruction
         self.temperature = temperature

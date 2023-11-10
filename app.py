@@ -14,16 +14,13 @@ def index():
 @app.route('/move')
 def get_move():
     """Retrieve move for LLM for chess game."""
-    white_moves = json.loads(request.args.get('movesWhiteEngine'))
-    black_moves = json.loads(request.args.get('movesBlackEngine'))
+    pgn = request.args.get('pgn')
 
-    print(white_moves)
-    print(black_moves)
+    print(pgn)
 
     # Instantiate engine
     engine_chess = Engine(
-        white_moves=white_moves,
-        black_moves=black_moves,
+        pgn=pgn,
         llm_side=BoardSide.BLACK,
         llm=OpenAILLM())
     

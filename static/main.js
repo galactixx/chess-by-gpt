@@ -3,12 +3,8 @@ var board, game = new Chess();
 var movesWhite = [];
 var movesBlack = [];
 
-var movesWhiteEngine = [];
-var movesBlackEngine = [];
-
 function getLLMMove() {
-    var url = "/move?movesWhiteEngine=" + encodeURIComponent(JSON.stringify(movesWhiteEngine)) +
-              "&movesBlackEngine=" + encodeURIComponent(JSON.stringify(movesBlackEngine));
+    var url = "/move?pgn=" + encodeURIComponent(game.pgn());
     $.get(url, function(data) {
       var data_split = data.split(",");
       var source = data_split[0].trim();
@@ -62,15 +58,12 @@ function movePieceLogic(source, target, piece, newPiece) {
     } else if (game.in_check()) {
       pieceAdd = pieceAdd.concat('+')
     }
-    var pieceUCIFormat = source.concat(target)
 
     if (game.turn() === 'b') {
       movesWhite.push(pieceAdd);
-      movesWhiteEngine.push(pieceUCIFormat);
       appendMoves('white-moves', movesWhite);
     } else {
       movesBlack.push(pieceAdd);
-      movesBlackEngine.push(pieceUCIFormat);
       appendMoves('black-moves', movesBlack);
     }
     var movesDiv = document.getElementById("moves");

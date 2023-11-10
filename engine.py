@@ -1,7 +1,10 @@
 import chess
 from enum import Enum
+from chess import InvalidMoveError
 
 from llm.openai import OpenAILLM
+
+MAX_TRIES = 5
 
 class BoardSide(Enum):
     """Side of the board that is being played by LLM."""
@@ -10,11 +13,13 @@ class BoardSide(Enum):
 
 class Engine:
     """Chess engine run entirely by response and output from GPT 3.5."""
-    def __init__(self, white_moves: list, black_moves: list, llm_side: BoardSide, llm: OpenAILLM):
-        self.white_moves = white_moves
-        self.black_moves = black_moves
+    def __init__(self, pgn: str, llm_side: BoardSide, llm: OpenAILLM):
+        self.pgn = pgn
         self._llm_side = llm_side
         self._llm = llm
+
+        self.counter_error = 0
+        self.incorrect_moves = []
 
         # Chess boards
         self._chess_board = chess.Board()
@@ -22,29 +27,26 @@ class Engine:
         # Check that llm_side parameter is of the correct (expected) type
         if not isinstance(self._llm_side, BoardSide):
             raise Exception('incorrect llm_side parameter specified, must be of type BoardSide')
-        
-        # Generate chess board through running total of all chess moves made
-
 
     def get_chess_move_response(self) -> str:
         """Execute llm inference to determine what the appropriate chess move should be."""
-        prompt = f"""
-            You are playing a chess game against a chess grandmaster. You are playing as the
-            {self._llm_side.value} pieces. It is move {len(self.white_moves)}.
+
+        while True:
+            prompt = f"The following moves in the chess game have been made: {self.pgn}"
+            move = self._llm.get_completion(prompt=prompt)
+            print(move)
+
+            try:
+                move_board = chess.Move.from_uci(''.join([i.strip() for i in move.split(',')]))
+            except InvalidMoveError:
+                continue
+
+            if self.counter_error > MAX_TRIES:
+                raise ValueError('engine sucks...')
             
-            Just respond with the source move (notation) followed by the target move (notation) separated by a comma.
-            DO NOT OUTPUT ANYTHING BUT THE SOURCE MOVE AND TARGET MOVE separated by a comma.
-            
-            The following moves have been made for either side:
-
-            White moves: {', '.join(self.white_moves)}
-
-            Black moves: {', '.join(self.black_moves)}
-        """
-        move = self._llm.get_completion(prompt=prompt)
-
-        move_board = chess.Move.frsom_uci(move)
-        if move_board in self._chess_board.legal_moves:
-            self._chess_board.push(move_board)
-
+            if move_board in list(self._chess_board.legal_moves):
+                self._chess_board.push(move_board)
+                break
+            self.incorrect_moves.append(move)
+            self.counter_error += 1
         return move
