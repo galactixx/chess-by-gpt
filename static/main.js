@@ -6,9 +6,8 @@ var movesBlack = [];
 function getLLMMove() {
     var url = "/move?pgn=" + encodeURIComponent(game.pgn());
     $.get(url, function(data) {
-      var data_split = data.split(",");
-      var source = data_split[0].trim();
-      var target = data_split[1].trim();
+      var source = data.substring(0, 2).trim();
+      var target = data.substring(2, 4).trim();
       var piece = game.get(source);
       movePiece(source, target, piece);
       setTimeout(function(){ board.position(game.fen()); }, 100);
@@ -86,6 +85,8 @@ function movePiece(source, target, piece) {
   } else {
     movePieceLogic(source, target, piece, 'q');
   }
+
+  console.log(game.moves())
 }
 
 function promotionPieceSelected(id, piece, newPiece, source, target) {

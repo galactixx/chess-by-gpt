@@ -1,8 +1,7 @@
 from enum import Enum
 
 class OpenAIInstructions(Enum):
-    CHESS = """You are chess grandmaster Magnus Carlsen, the best and most ambitious chess player in history.
-               Respond with a single move."""
+    CHESS = "You are chess grandmaster Magnus Carlsen, the best and most ambitious chess player in history."
 
 class OpenAIModels(Enum):
     """All OpenAI models available through API"""
