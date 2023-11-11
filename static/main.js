@@ -3,8 +3,24 @@ var board, game = new Chess();
 var movesWhite = [];
 var movesBlack = [];
 
-function gameOverModal() {
+function newGame() {
+  game.reset();
+  board.start();
+  movesWhite = [];
+  movesBlack = [];
+  appendMoves('white-moves', movesWhite);
+  appendMoves('black-moves', movesBlack);
+}
+
+function gameOverModal(text) {
+  document.getElementById('gameOverText').innerHTML = text;
   document.getElementById('gameOverDialog').showModal();
+
+  document.getElementById('gameOverButton').addEventListener('click', function() {
+    document.getElementById('gameOverDialog').close();
+    newGame();
+  })
+
 }
 
 function getLLMMove() {
@@ -33,13 +49,14 @@ function onSnapPiece() {
 
   // checkmate
   if (game.in_checkmate()) {
-    gameOverModal();
-  }
+    let gameWinner = (game.turn() === 'w') ? "Black" : "White";
+    gameOverModal(`Checkmate! ${gameWinner} has won the game.`);
+}
 
   // draw
-  // else if (game.in_draw()) {
-    
-  // }
+  else if (game.in_draw()) {
+    gameOverModal('Stalemate! No one is a winner.')
+  }
 }
 
 function illegalMove(move) {
@@ -113,7 +130,7 @@ function promotionPieceSelected(id, piece, newPiece, source, target) {
 function onDropPiece(source, target) {
   var piece = game.get(source);
   movePiece(source, target, piece);
-  // getLLMMove();
+  getLLMMove();
 }
 
 function onDragPiece (source, piece, position, orientation) {
