@@ -75,6 +75,34 @@ function illegalMove(move) {
   }
 }
 
+// parsing of correct notation
+function chessNotation(piece, move, source, target) {
+  var pieceAdd = null;
+
+  if (piece.type == 'p' && move.flags.includes('c')) {
+    pieceAdd = source[0].concat('x').concat(target);
+  } else if (piece.type === 'p') {
+    pieceAdd = target;
+  } else if (move.flags.includes('c')) {
+    pieceAdd = piece.type.toUpperCase().concat('x').concat(target);
+  } else {
+    pieceAdd = piece.type.toUpperCase().concat(target);
+  }
+  if (move.flags.includes('k')) {
+    pieceAdd = 'O-O';
+  } else if (move.flags.includes('q')) {
+    pieceAdd = 'O-O-O';
+  }
+
+  if (game.in_checkmate()) {
+    pieceAdd = pieceAdd.concat('#')
+  } else if (game.in_check()) {
+    pieceAdd = pieceAdd.concat('+')
+  }
+  return pieceAdd
+}
+
+
 // logic to move a piece and record notation
 function movePieceLogic(source, target, piece, newPiece) {
   var move = game.move({
@@ -86,20 +114,7 @@ function movePieceLogic(source, target, piece, newPiece) {
 
   // parsing of correct notation
   if (move != null) {
-    if (piece.type == 'p' && move.flags.includes('c')) {
-      var pieceAdd = source[0].concat('x').concat(target);
-    } else if (piece.type === 'p') {
-      var pieceAdd = target;
-    } else if (move.flags.includes('c')) {
-      var pieceAdd = piece.type.toUpperCase().concat('x').concat(target);
-    } else {
-      var pieceAdd = piece.type.toUpperCase().concat(target);
-    }
-    if (game.in_checkmate()) {
-      pieceAdd = pieceAdd.concat('#')
-    } else if (game.in_check()) {
-      pieceAdd = pieceAdd.concat('+')
-    }
+    pieceAdd = chessNotation(piece, move, source, target)
 
     // update white and black moves in variable in html notation
     if (game.turn() === 'b') {

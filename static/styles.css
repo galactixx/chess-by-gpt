@@ -1,23 +1,29 @@
-@font-face {
-    font-family: 'Vinque';
-    src: url('fonts/vinque_rg.otf');
-}
-
-@font-face {
-    font-family: 'Caslon Antique';
-    src: url('fonts/caslon_antique_italic.ttf');
-}
-
 body {
-    padding-top: 110px;
-    align-items: center;
+  margin: 0;
+  padding-top: 70px;
+  display: flex;
+  color: black;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  font-family: monospace;
+}
+
+.title {
+  font-size: 40px;
+  padding-bottom: 10px;
+}
+
+.header {
+  font-size: 22px;
 }
 
 span {
-    overflow: hidden;
-    display: inline-block;
-    align-items: center;
-    vertical-align: center;
+  overflow: hidden;
+  display: inline-block;
+  align-items: center;
+  vertical-align: center;
 }
 
 #promotion {
@@ -56,8 +62,8 @@ span {
     height: 500px;
     display: flex;
     text-align: left;
-    font-family: 'monospace', serif;
     overflow: auto;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 #move, #white, #black {
@@ -134,7 +140,6 @@ span {
 
 .promotion-question {
   font-size: 18px;
-  font-family: 'monospace', serif;
   text-align: center;
 }
 
@@ -146,15 +151,14 @@ ul, ol {
   font-size: 20px;
 }
 
-.dialog {
+dialog {
   font-family: monospace;
   font-size: 20px;
   animation: appear 350ms ease-in 1;
   max-width: 500px;
 }
 
-.game-over-button {
-  font-family: monospace;
+#game-over-button {
   background: white;
   color: black;
   font-size: 14px;
