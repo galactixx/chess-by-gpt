@@ -4,6 +4,8 @@ var movesNumber = [];
 var movesWhite = [];
 var movesBlack = [];
 
+var pieceToAbb = { 'queen': 'q', 'rook': 'r', 'bishop': 'b', 'knight': 'n' };
+
 function appendWhiteMoves() {
   appendMoves('white-moves', movesWhite);
 }
@@ -76,9 +78,10 @@ function illegalMove(move) {
 }
 
 // parsing of correct notation
-function chessNotation(piece, move, source, target) {
+function chessNotation(piece, newPiece, move, source, target, doPromotion) {
   var pieceAdd = null;
 
+  // notation for capture or not
   if (piece.type == 'p' && move.flags.includes('c')) {
     pieceAdd = source[0].concat('x').concat(target);
   } else if (piece.type === 'p') {
@@ -88,23 +91,31 @@ function chessNotation(piece, move, source, target) {
   } else {
     pieceAdd = piece.type.toUpperCase().concat(target);
   }
+  
+  // notation for castling
   if (move.flags.includes('k')) {
     pieceAdd = 'O-O';
   } else if (move.flags.includes('q')) {
     pieceAdd = 'O-O-O';
   }
 
-  if (game.in_checkmate()) {
-    pieceAdd = pieceAdd.concat('#')
-  } else if (game.in_check()) {
-    pieceAdd = pieceAdd.concat('+')
+  // notation if promotion ocurred
+  if (doPromotion) {
+    pieceAdd = pieceAdd.concat(`=${newPiece.toUpperCase()}`);
   }
-  return pieceAdd
+
+  // notation for check or checkmate
+  if (game.in_checkmate()) {
+    pieceAdd = pieceAdd.concat('#');
+  } else if (game.in_check()) {
+    pieceAdd = pieceAdd.concat('+');
+  }
+  return pieceAdd;
 }
 
 
 // logic to move a piece and record notation
-function movePieceLogic(source, target, piece, newPiece) {
+function movePieceLogic(source, target, piece, newPiece, doPromotion) {
   var move = game.move({
     from: source,
     to: target,
@@ -114,7 +125,7 @@ function movePieceLogic(source, target, piece, newPiece) {
 
   // parsing of correct notation
   if (move != null) {
-    pieceAdd = chessNotation(piece, move, source, target)
+    pieceAdd = chessNotation(piece, newPiece, move, source, target, doPromotion);
 
     // update white and black moves in variable in html notation
     if (game.turn() === 'b') {
@@ -137,30 +148,36 @@ function movePieceLogic(source, target, piece, newPiece) {
 
 // logic when moving a piece
 function movePiece(source, target, piece) {
+  var doPromotion = false;
   
   if (piece.type === 'p' && (target[1] === '8' || target[1] === '1') &&
      (source[1] === '7' || source[1] === '2')) {
+    doPromotion = true;
 
     if (game.turn() === 'b') {
       if (target.length === 3) {
         var promotionPiece = target.substring(2);
         target = target.substring(0, 2);
-        movePieceLogic(source, target, piece, promotionPiece);
+        movePieceLogic(source, target, piece, promotionPiece, doPromotion);
       } else {
-      movePieceLogic(source, target, piece, 'q');
+      movePieceLogic(source, target, piece, 'q', doPromotion);
       }
     } else {
 
+      // show promotion piece options
       document.getElementById('promotion').classList.remove('hide');
       document.getElementById('promotion').classList.add('show');
 
-      promotionPieceSelected('queen', piece, 'q', source, target);
-      promotionPieceSelected('rook', piece, 'r', source, target);
-      promotionPieceSelected('bishop', piece, 'b', source, target);
-      promotionPieceSelected('knight', piece, 'n', source, target);
+      // iterate through all possible promotion options
+      Object.entries(pieceToAbb).forEach(function(tuple) {
+        var pieceSelection = tuple[0];
+        var abbreviation = tuple[1];
+        promotionPieceSelected(pieceSelection, piece, abbreviation, source, target);
+      });
+
     }
   } else {
-    movePieceLogic(source, target, piece, 'q');
+    movePieceLogic(source, target, piece, 'q', doPromotion);
   }
   // checkmate
   if (game.in_checkmate()) {
@@ -170,7 +187,7 @@ function movePiece(source, target, piece) {
 
   // draw
   else if (game.in_draw()) {
-    gameOverModal('Stalemate! No one is a winner.')
+    gameOverModal('Stalemate! No one is a winner.');
   }
 
 }
@@ -179,7 +196,7 @@ function movePiece(source, target, piece) {
 function promotionPieceSelected(id, piece, newPiece, source, target) {
 
   document.getElementById(id).addEventListener('click', function() {
-    movePieceLogic(source, target, piece, newPiece);
+    movePieceLogic(source, target, piece, newPiece, true);
     document.getElementById('promotion').classList.add('hide');
     board.position(game.fen());
   });

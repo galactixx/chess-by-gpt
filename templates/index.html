@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Chess by GPT</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
@@ -36,13 +37,17 @@
                     <div id="piecesW"></div>
                 </div>
                 <span class="span" id="promotion">
-                    <button class="promotion-button" id="queen"><img src="/static/images/wQ.png">
+                    <button class="promotion-button" id="queen" title="Queen Promotion">
+                        <img src="/static/images/wQ.png" alt="Image for queen piece">
                     </button>
-                    <button class="promotion-button" id="rook"><img src="/static/images/wR.png">
+                    <button class="promotion-button" id="rook" title="Rook Promotion">
+                        <img src="/static/images/wR.png" alt="Image for rook piece">
                     </button>
-                    <button class="promotion-button" id="bishop"><img src="/static/images/wB.png">
+                    <button class="promotion-button" id="bishop" title="Bishop Promotion">
+                        <img src="/static/images/wB.png" alt="Image for bishop piece">
                     </button>
-                    <button class="promotion-button" id="knight"><img src="/static/images/wN.png">
+                    <button class="promotion-button" id="knight" title="Knight Promotion">
+                        <img src="/static/images/wN.png" alt="Image for knight piece">
                     </button>
                     <h2 class="promotion-question">Which piece would you like to promote to?</h2>     
                 </span>
