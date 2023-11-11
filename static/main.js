@@ -3,6 +3,10 @@ var board, game = new Chess();
 var movesWhite = [];
 var movesBlack = [];
 
+function gameOverModal() {
+  document.getElementById('gameOverDialog').showModal();
+}
+
 function getLLMMove() {
     var url = "/move?pgn=" + encodeURIComponent(game.pgn());
     $.get(url, function(data) {
@@ -26,6 +30,16 @@ function appendMoves(id, moveList) {
 
 function onSnapPiece() {
   board.position(game.fen());
+
+  // checkmate
+  if (game.in_checkmate()) {
+    gameOverModal();
+  }
+
+  // draw
+  // else if (game.in_draw()) {
+    
+  // }
 }
 
 function illegalMove(move) {
@@ -85,8 +99,6 @@ function movePiece(source, target, piece) {
   } else {
     movePieceLogic(source, target, piece, 'q');
   }
-
-  console.log(game.moves())
 }
 
 function promotionPieceSelected(id, piece, newPiece, source, target) {
@@ -101,7 +113,7 @@ function promotionPieceSelected(id, piece, newPiece, source, target) {
 function onDropPiece(source, target) {
   var piece = game.get(source);
   movePiece(source, target, piece);
-  getLLMMove();
+  // getLLMMove();
 }
 
 function onDragPiece (source, piece, position, orientation) {
@@ -126,3 +138,10 @@ function generateChessBoard() {
 }
 
 setTimeout(generateChessBoard, 1);
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+  }
+});

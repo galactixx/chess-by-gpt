@@ -52,12 +52,11 @@ span {
 
 #moves {
     margin: 0;
-    outline: 1px solid rgb(52, 50, 50);
+    outline: 2px solid rgb(0, 0, 0);
     height: 500px;
     display: flex;
     text-align: left;
-    font-family: 'Caslon Antique', serif;
-    border-radius: 5px 10px 15px 20px;
+    font-family: 'monospace', serif;
     overflow: auto;
 }
 
@@ -72,7 +71,7 @@ span {
   border-style: solid;
   border-width: .125rem;
   box-sizing: border-box;
-  color: #212121;
+  color: #000000;
   cursor: pointer;
   display: inline-block;
   font-weight: 700;
@@ -135,7 +134,7 @@ span {
 
 .promotion-question {
   font-size: 18px;
-  font-family: 'Caslon Antique', serif;
+  font-family: 'monospace', serif;
   text-align: center;
 }
 
@@ -145,4 +144,20 @@ ul, ol {
 
 #white-moves, #black-moves {
   font-size: 20px;
+}
+
+.dialog {
+  font-family: monospace;
+  font-size: 20px;
+  animation: appear 350ms ease-in 1;
+  max-width: 500px;
+}
+
+.game-over-button {
+  font-family: monospace;
+  background: white;
+  color: black;
+  font-size: 14px;
+  padding: .5em 1em;
+  border-radius: 4px;
 }
