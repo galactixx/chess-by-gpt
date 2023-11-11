@@ -46,17 +46,6 @@ function appendMoves(id, moveList) {
 
 function onSnapPiece() {
   board.position(game.fen());
-
-  // checkmate
-  if (game.in_checkmate()) {
-    let gameWinner = (game.turn() === 'w') ? "Black" : "White";
-    gameOverModal(`Checkmate! ${gameWinner} has won the game.`);
-}
-
-  // draw
-  else if (game.in_draw()) {
-    gameOverModal('Stalemate! No one is a winner.')
-  }
 }
 
 function illegalMove(move) {
@@ -116,6 +105,17 @@ function movePiece(source, target, piece) {
   } else {
     movePieceLogic(source, target, piece, 'q');
   }
+  // checkmate
+  if (game.in_checkmate()) {
+    let gameWinner = (game.turn() === 'w') ? "Black" : "White";
+    gameOverModal(`Checkmate! ${gameWinner} has won the game.`);
+  }
+
+  // draw
+  else if (game.in_draw()) {
+    gameOverModal('Stalemate! No one is a winner.')
+  }
+
 }
 
 function promotionPieceSelected(id, piece, newPiece, source, target) {
