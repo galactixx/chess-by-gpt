@@ -1,5 +1,3 @@
-import json
-
 from flask import Flask, request, render_template
 
 from engine import BoardSide, Engine
@@ -16,8 +14,6 @@ def get_move():
     """Retrieve move for LLM for chess game."""
     pgn = request.args.get('pgn')
 
-    print(pgn)
-
     # Instantiate engine
     engine_chess = Engine(
         pgn=pgn,
@@ -26,7 +22,6 @@ def get_move():
     
     # Get move response from LLM
     move = engine_chess.get_chess_move_response()
-    print(move)
 
     return move
 

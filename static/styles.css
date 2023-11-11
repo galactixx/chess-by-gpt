@@ -60,7 +60,7 @@ span {
     overflow: auto;
 }
 
-#white, #black {
+#move, #white, #black {
     width: 45%;
 }
 
@@ -142,7 +142,7 @@ ul, ol {
   list-style-type: none;
 }
 
-#white-moves, #black-moves {
+#move-number, #white-moves, #black-moves {
   font-size: 20px;
 }
 

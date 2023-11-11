@@ -74,7 +74,6 @@ class Engine:
             In this chess game you are playing as {self._llm_side.value}.
             The following moves in the chess game have been made: {self._pgn}"""
             move = self._llm.get_completion(prompt=prompt)
-            print(move)
 
             if self.counter_error > MAX_TRIES:
                 raise ValueError('engine sucks...')
@@ -82,8 +81,6 @@ class Engine:
             # Validate the response from LLM
             move_cleaned = self._prepare_clean_response_move(move=move)
             move_validated = self._validate_response_move(target_move=move_cleaned)
-
-            print(move_validated)
 
             if move_validated is not None:
                 return move_validated
