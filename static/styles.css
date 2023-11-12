@@ -1,9 +1,10 @@
 html, body {
-  padding-top: 2%;
+  padding-top: 1%;
   padding-bottom: 2%;
   display: flex;
   color: black;
   height: 100%;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -12,44 +13,57 @@ html, body {
 
 .title {
   font-size: 40px;
-  padding-bottom: 10px;
+  padding-bottom: 13px;
 }
 
 .header {
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .container {
   display: flex;
-  justify-content: space-between;
+  gap: 2%;
+  align-items: center;
+  justify-content: center;
 }
 
-#chessBoard {
-  min-width: 300px;
+.board-container {
   width: 45%;
+  min-width: 400px;
+  align-items: center;
+}
+
+.button-container {
+  gap: 5px;
+  flex-direction: row;
+  padding-bottom: 10px;
+  display: flex;
 }
 
 #moves {
   display: flex;
   text-align: center;
   overflow: auto;
-  width: 45%;
+  width: 35%;
   height: 95%;
-  min-width: 300px;
+  min-width: 400px;
   background-color: white;
   outline: 2px solid rgb(0, 0, 0);
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 1100px) {
+  html, body {
+    height: 150%;
+  }
+
   .container {
     display: flex;
-    align-items: center;
     flex-direction: column;
   }
 
-  html, body {
-    height: 150%;
+  .board-container, #moves {
+    width: 55%;
   }
 
   #moves {
@@ -59,6 +73,7 @@ html, body {
   #chessBoard {
     padding-bottom: 20px;
   }
+
 }
 
 #move, #white, #black {
@@ -143,20 +158,25 @@ ul, ol {
 }
 
 #move-number, #white-moves, #black-moves {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 dialog {
   font-family: monospace;
-  font-size: 20px;
+  font-size: 18px;
   animation: appear 350ms ease-in 1;
-  max-width: 500px;
+  max-width: 400px;
 }
 
-#game-over-button {
+#gameOverButton, #resetButton, #resignButton {
   background: white;
   color: black;
   font-size: 14px;
   padding: .5em 1em;
   border-radius: 4px;
+}
+
+#resetButton, #resignButton {
+  width: 20%;
+  text-align: center;
 }

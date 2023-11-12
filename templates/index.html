@@ -30,10 +30,16 @@
     <body>
         <h1 class="title">Chess GPT</h1>
         <div class="container">
-            <div id="chessBoard">
-                <div id="piecesB"></div>
-                <div id="board"></div>
-                <div id="piecesW"></div>
+            <div class="board-container">
+                <div class="button-container">
+                    <button id="resetButton" onclick="newGame()">reset</button>
+                    <button id="resignButton" onclick="checkmateLogic()">resign</button>
+                </div>
+                <div id="chessBoard">
+                    <div id="piecesB"></div>
+                    <div id="board"></div>
+                    <div id="piecesW"></div>
+                </div>
             </div>
             <div id="moves">
                 <div id="move">

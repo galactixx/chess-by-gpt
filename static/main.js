@@ -146,6 +146,12 @@ function movePieceLogic(source, target, piece, newPiece, doPromotion) {
   }
 }
 
+// logic to be run when checkmate occurs
+function checkmateLogic() {
+  let gameWinner = (game.turn() === 'w') ? "Black" : "White";
+  gameOverModal(`Checkmate! ${gameWinner} has won the game.`);
+}
+
 // logic when moving a piece
 function movePiece(source, target, piece) {
   var doPromotion = false;
@@ -180,8 +186,7 @@ function movePiece(source, target, piece) {
   }
   // checkmate
   if (game.in_checkmate()) {
-    let gameWinner = (game.turn() === 'w') ? "Black" : "White";
-    gameOverModal(`Checkmate! ${gameWinner} has won the game.`);
+    checkmateLogic()
   }
 
   // draw
