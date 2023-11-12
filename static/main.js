@@ -165,8 +165,7 @@ function movePiece(source, target, piece) {
     } else {
 
       // show promotion piece options
-      document.getElementById('promotion').classList.remove('hide');
-      document.getElementById('promotion').classList.add('show');
+      document.getElementById('promotionDialog').showModal();
 
       // iterate through all possible promotion options
       Object.entries(pieceToAbb).forEach(function(tuple) {
@@ -197,7 +196,7 @@ function promotionPieceSelected(id, piece, newPiece, source, target) {
 
   document.getElementById(id).addEventListener('click', function() {
     movePieceLogic(source, target, piece, newPiece, true);
-    document.getElementById('promotion').classList.add('hide');
+    document.getElementById('promotionDialog').close();
     board.position(game.fen());
   });
 }
@@ -240,4 +239,8 @@ document.addEventListener('keydown', function(event) {
       event.preventDefault();
       event.stopPropagation();
   }
+});
+
+window.addEventListener('resize', function() {
+  board.resize();
 });

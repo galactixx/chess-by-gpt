@@ -30,29 +30,12 @@
     <body>
         <h1 class="title">Chess GPT</h1>
         <div class="container">
-            <div class="col-xs-12 col-sm-6">
-                <div id="chessBoard">
-                    <div id="piecesB"></div>
-                    <div id="board"></div>
-                    <div id="piecesW"></div>
-                </div>
-                <span class="span" id="promotion">
-                    <button class="promotion-button" id="queen" title="Queen Promotion">
-                        <img src="/static/images/wQ.png" alt="Image for queen piece">
-                    </button>
-                    <button class="promotion-button" id="rook" title="Rook Promotion">
-                        <img src="/static/images/wR.png" alt="Image for rook piece">
-                    </button>
-                    <button class="promotion-button" id="bishop" title="Bishop Promotion">
-                        <img src="/static/images/wB.png" alt="Image for bishop piece">
-                    </button>
-                    <button class="promotion-button" id="knight" title="Knight Promotion">
-                        <img src="/static/images/wN.png" alt="Image for knight piece">
-                    </button>
-                    <h2 class="promotion-question">Which piece would you like to promote to?</h2>     
-                </span>
+            <div id="chessBoard">
+                <div id="piecesB"></div>
+                <div id="board"></div>
+                <div id="piecesW"></div>
             </div>
-            <div id="moves" class="col-xs-12 col-sm-6">
+            <div id="moves">
                 <div id="move">
                     <h2 class="header">Move #</h2>
                     <p id="move-number"></p>
@@ -70,6 +53,21 @@
         <dialog id="gameOverDialog">
             <p id="gameOverText"></p>
             <button id="gameOverButton">reset</button>
+        </dialog>
+        <dialog id="promotionDialog">
+            <button class="promotion-button" id="queen" title="Queen Promotion">
+                <img src="/static/images/wQ.png" alt="Image for queen piece">
+            </button>
+            <button class="promotion-button" id="rook" title="Rook Promotion">
+                <img src="/static/images/wR.png" alt="Image for rook piece">
+            </button>
+            <button class="promotion-button" id="bishop" title="Bishop Promotion">
+                <img src="/static/images/wB.png" alt="Image for bishop piece">
+            </button>
+            <button class="promotion-button" id="knight" title="Knight Promotion">
+                <img src="/static/images/wN.png" alt="Image for knight piece">
+            </button>
+            <h2 class="promotion-question">Which piece would you like to promote to?</h2>     
         </dialog>
     </body>
 </html>
