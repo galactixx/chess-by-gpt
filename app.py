@@ -1,6 +1,11 @@
-from flask import Flask, request, render_template
+from flask import (
+    Flask,
+    request,
+    render_template)
 
-from engine import BoardSide, Engine
+from engine import (
+    BoardSide,
+    Engine)
 from llm.openai import OpenAILLM
 
 app = Flask(__name__)
@@ -8,6 +13,21 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template("index.html")
+
+@app.route('/offer')
+def draw_offer():
+    pgn = request.args.get('pgn')
+
+    # Instantiate engine
+    engine_chess = Engine(
+        pgn=pgn,
+        llm_side=BoardSide.BLACK,
+        llm=OpenAILLM())
+    
+    # Get draw response from LLM
+    response = engine_chess.offer_draw_response()
+
+    return response
 
 @app.route('/move')
 def get_move():

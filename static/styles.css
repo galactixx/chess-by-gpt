@@ -25,6 +25,7 @@ html, body {
   gap: 2%;
   align-items: center;
   justify-content: center;
+  padding-bottom: 5%;
 }
 
 .board-container {
@@ -45,8 +46,7 @@ html, body {
   text-align: center;
   overflow: auto;
   width: 35%;
-  height: 95%;
-  min-width: 400px;
+  height: 500px;
   background-color: white;
   outline: 2px solid rgb(0, 0, 0);
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -54,7 +54,7 @@ html, body {
 
 @media (max-width: 1100px) {
   html, body {
-    height: 150%;
+    height: auto;
   }
 
   .container {
