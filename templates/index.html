@@ -25,7 +25,6 @@
         <script type="text/javascript"> $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; </script>
         <script type="text/javascript" src="{{ url_for('static',filename='libs/chessboard/js/chessboard-0.3.0.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static',filename='libs/chessboard/js/chessboard-0.3.0.min.js') }}"></script>
-        <script type="text/javascript" src="{{ url_for('static',filename='main.js') }}"></script>
     </head>
     <body>
         <h1 class="title">Chess GPT</h1>
@@ -56,6 +55,10 @@
                 </div>
             </div>
         </div>
+        <dialog id="apiKeyDialog">
+            <input type="text" id="userInput" />
+            <button id="apiKeyBtn">submit</button>
+        </dialog>
         <dialog id="gameOverDialog">
             <p id="gameOverText"></p>
             <button id="gameOverButton">reset</button>
@@ -75,5 +78,6 @@
             </button>
             <h2 class="promotion-question">Which piece would you like to promote to?</h2>     
         </dialog>
+        <script type="text/javascript" src="{{ url_for('static',filename='main.js') }}"></script>
     </body>
 </html>

@@ -45,11 +45,12 @@ function newGame() {
 
 // actions to execute when game is over
 function gameOverModal(text) {
+  var overModal = document.getElementById('gameOverDialog');
   document.getElementById('gameOverText').innerHTML = text;
-  document.getElementById('gameOverDialog').showModal();
+  overModal.showModal();
 
   document.getElementById('gameOverButton').addEventListener('click', function() {
-    document.getElementById('gameOverDialog').close();
+    overModal.close();
     newGame();
   })
 
@@ -263,3 +264,39 @@ document.addEventListener('keydown', function(event) {
 window.addEventListener('resize', function() {
   board.resize();
 });
+
+var apiKeyModal = document.getElementById('apiKeyDialog');
+
+async function apiKeyValidity(apiKey) {
+  const response = await fetch(
+    '/store-api-key', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ apiKey: apiKey }),
+  });
+  const data = await response.json();
+  return { isValid: data.isValid };
+}
+
+function getAPIKey() {
+  var apiKey = document.getElementById('userInput').value;
+  
+  apiKeyValidity(apiKey).then(result => {
+    console.log(result)
+
+    if (result.isValid) {
+      localStorage.setItem("apiKey", apiKey);
+      apiKeyModal.close();
+    } else {
+      alert("Please fill out the input.");
+    }
+  });
+
+}
+
+// show api key input modal
+apiKeyModal.showModal();
+
+document.getElementById('apiKeyBtn').addEventListener('click', getAPIKey);

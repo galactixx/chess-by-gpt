@@ -42,14 +42,6 @@ class Engine:
         """Retrieve current move number from board position."""
         return (self._chess_board.ply() // 2) + 1
 
-    def offer_draw_response(self) -> str:
-        """Logic for offering a draw to LLM."""
-        prompt = f"""
-        You are offered a draw in the chess game.
-        The position is as follows {self._pgn}. Do you accept the draw? Respond yes or no."""
-        respone = self._llm.get_completion(prompt=prompt)
-        return 'Yes' if 'yes' in respone.lower() else 'No'
-
     def _record_current_position_in_board(self) -> None:
         """Record all moves from pgn in chess board."""
 
