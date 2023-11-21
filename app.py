@@ -33,8 +33,6 @@ def store_api_key() -> bool:
     api_key_valid = open_ai_test.is_valid_openai_key()
     if api_key_valid:
         session['api_key'] = data['apiKey']
-
-    print(api_key_valid)
     
     return jsonify({"isValid": api_key_valid})
 

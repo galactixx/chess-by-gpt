@@ -168,12 +168,16 @@ dialog {
   max-width: 400px;
 }
 
-#gameOverButton, #resetButton, #resignButton {
+#gameOverButton, #resetButton, #resignButton, #apiKeyButton {
   background: white;
   color: black;
   font-size: 14px;
   padding: .5em 1em;
   border-radius: 4px;
+}
+
+#apiKeyDialog {
+  width: 40%
 }
 
 #resetButton, #resignButton {

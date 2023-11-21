@@ -281,16 +281,16 @@ async function apiKeyValidity(apiKey) {
 }
 
 function getAPIKey() {
-  var apiKey = document.getElementById('userInput').value;
+  var input = document.getElementById('apiKeyInput');
+  var apiKey = input.value;
   
   apiKeyValidity(apiKey).then(result => {
-    console.log(result)
 
     if (result.isValid) {
       localStorage.setItem("apiKey", apiKey);
       apiKeyModal.close();
     } else {
-      alert("Please fill out the input.");
+      input.classList.add("border-danger");
     }
   });
 
@@ -299,4 +299,4 @@ function getAPIKey() {
 // show api key input modal
 apiKeyModal.showModal();
 
-document.getElementById('apiKeyBtn').addEventListener('click', getAPIKey);
+document.getElementById('apiKeyButton').addEventListener('click', getAPIKey);
