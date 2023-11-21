@@ -27,8 +27,8 @@ function gameWinner() {
 // logic for resign button
 function resignButton() {
   let winner = gameWinner();
-  let gameResigner = (winner === 'White') ? "Black": "White";
-  gameOverModal(`${gameResigner} resigns! ${winner} has won the game.`);
+  let resigner = (winner === 'White') ? "Black": "White";
+  gameOverModal(`${resigner} resigns! ${winner} has won the game.`);
 }
 
 // when game is reset
@@ -198,9 +198,14 @@ function movePiece(source, target, piece) {
     gameOverModal(`Checkmate! ${winner} has won the game.`);
   }
 
-  // draw
+  // threefold repetition
+  else if (game.in_threefold_repetition()) {
+    gameOverModal('Threefold repetition! It is a draw.');
+  }
+
+  // stalemate
   else if (game.in_draw()) {
-    gameOverModal('Stalemate! No one is a winner.');
+    gameOverModal('Stalemate! It is a draw.');
   }
 
 }
@@ -219,7 +224,7 @@ function promotionPieceSelected(id, piece, newPiece, source, target) {
 function onDropPiece(source, target) {
   var piece = game.get(source);
   movePiece(source, target, piece);
-  getLLMMove();
+  // getLLMMove();
 }
 
 // when piece is initially dragged to target
@@ -229,7 +234,9 @@ function onDragPiece (source, piece, position, orientation) {
   };
 
   if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-      (piece.search(/^b/) !== -1)) {
+      (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+  
+  // (piece.search(/^b/) !== -1)) {
     return false;
   };
 }
