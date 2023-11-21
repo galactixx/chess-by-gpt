@@ -224,7 +224,7 @@ function promotionPieceSelected(id, piece, newPiece, source, target) {
 function onDropPiece(source, target) {
   var piece = game.get(source);
   movePiece(source, target, piece);
-  // getLLMMove();
+  getLLMMove();
 }
 
 // when piece is initially dragged to target
@@ -234,9 +234,7 @@ function onDragPiece (source, piece, position, orientation) {
   };
 
   if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-      (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
-  
-  // (piece.search(/^b/) !== -1)) {
+      (piece.search(/^b/) !== -1)) {
     return false;
   };
 }
