@@ -27,7 +27,7 @@ class OpenAILLM(BaseLLM):
         # Instantiate a client object for interacting with the OpenAI API
         self.client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 
-        if model_name.value not in [model.value for model in OpenAIModels]:
+        if not isinstance(self.model_name, OpenAIModels):
             raise ValueError(f'{model_name} is not a valid model name for OpenAI API')
         
     def get_completion(self, prompt: str) -> str:

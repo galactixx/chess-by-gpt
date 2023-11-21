@@ -191,10 +191,11 @@ function movePiece(source, target, piece) {
   } else {
     movePieceLogic(source, target, piece, 'q', doPromotion);
   }
+
   // checkmate
   if (game.in_checkmate()) {
-    let gameWinner = gameWinner();
-    gameOverModal(`Checkmate! ${gameWinner} has won the game.`);
+    let winner = gameWinner();
+    gameOverModal(`Checkmate! ${winner} has won the game.`);
   }
 
   // draw
