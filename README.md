@@ -5,5 +5,5 @@ Chess engine running entirely by GPT3.5/GPT4
 - ~~Add logic for determining checkmate and stalemate.~~
 - ~~Add numbers for each move in notation.~~
 - ~~Center promotion buttons more so.~~
-- Add shading over board when asking for promotion.
+- ~~Add shading over board when asking for promotion.~~
 - Add button (option) to change model, as well as to reset board.
