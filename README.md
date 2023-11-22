@@ -1,5 +1,5 @@
 # chess-by-gpt
-Chess engine running entirely by GPT3.5/GPT4
+A cutting-edge chess engine running entirely on OpenAI's GPT-3.5 and GPT-4 models. This repository houses an innovative application of large language models to the realm of chess, showcasing how AI can be utilized to play and analyze this classic game with remarkable proficiency.
 
 
 Future ideas:
