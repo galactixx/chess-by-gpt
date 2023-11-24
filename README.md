@@ -5,5 +5,5 @@ A cutting-edge chess engine running entirely on OpenAI's GPT-3.5 and GPT-4 model
 Future ideas:
 
 - Add in real-time chess evaluation
-- Option for GPT3.5/GPT4 to play against a better enging like Stockfish
+- Option for GPT3.5/GPT4 to play against a better engine like Stockfish
 - Use GPT4V to make a decision based on image instead of text
