@@ -11,7 +11,7 @@ from engine import (
     Engine)
 from llm.openai import (
     OpenAILLM, 
-    OpenAITest)
+    valid_openai_key)
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -29,8 +29,7 @@ def store_api_key() -> bool:
     api_key = data['apiKey']
 
     # Test if OpenAI key is valid
-    open_ai_test = OpenAITest(api_key=api_key)
-    api_key_valid = open_ai_test.is_valid_openai_key()
+    api_key_valid = valid_openai_key(api_key=api_key)
     if api_key_valid:
         session['api_key'] = data['apiKey']
     

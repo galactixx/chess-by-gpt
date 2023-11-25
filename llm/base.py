@@ -5,5 +5,4 @@ class BaseLLM(ABC):
 
     @abstractmethod
     def get_completion(self, prompt: str) -> str:
-        """Get prompt completion from LLM."""
         pass

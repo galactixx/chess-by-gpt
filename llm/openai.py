@@ -6,23 +6,19 @@ from llm.models import (
     OpenAIInstructions,
     OpenAIModels)
 
-class OpenAITest:
+def valid_openai_key(api_key: str) -> bool:
     """Test OpenAI API key for validity."""
-    def __init__(self, api_key: str):
-        self._api_key = api_key
 
-    def is_valid_openai_key(self) -> bool:
-        """Test OpenAI API key for validity."""
-
-        url = "https://api.openai.com/v1/models"
-        headers = {"Authorization": f"Bearer {self._api_key}"}
-        
-        response = requests.get(url, headers=headers)
-        
-        if response.status_code == 200:
-            return True
-        else:
-            return False
+    # Connection to OpenAI endpoint and check validity
+    url = "https://api.openai.com/v1/models"
+    headers = {"Authorization": f"Bearer {api_key}"}
+    
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+        return True
+    else:
+        return False
 
 class OpenAILLM(BaseLLM):
     """Simple interface for OpenAI LLM."""
